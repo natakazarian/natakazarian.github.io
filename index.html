@@ -256,19 +256,66 @@
         .project {
             background: var(--card-bg);
             color: var(--text-color);
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
             border-radius: 8px;
             border: 1px solid var(--card-border);
             box-shadow: 0 2px 10px var(--shadow-color);
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .project h3 {
-            margin-top: 0;
-            color: var(--project-h3-color);
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: transparent;
+            border: none;
             border-bottom: 1px solid var(--card-border);
-            padding-bottom: 10px;
-            transition: color 0.3s ease, border-color 0.3s ease;
+            padding: 0 0 12px 0;
+            margin: 0;
+            cursor: pointer;
+            text-align: left;
+            color: inherit;
+            font: inherit;
+            transition: border-color 0.3s ease;
+        }
+        .project-header:hover h3 {
+            opacity: 0.85;
+        }
+        .project-header h3 {
+            margin: 0;
+            color: var(--project-h3-color);
+            transition: color 0.3s ease;
+            font-size: 1.25em;
+            font-weight: 700;
+        }
+        .project-toggle-icon {
+            font-size: 0.85em;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+        .project:not(.expanded) .project-header {
+            border-bottom-color: transparent;
+            padding-bottom: 0;
+        }
+        .project.expanded .project-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .project-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project.expanded .project-body {
+            grid-template-rows: 1fr;
+        }
+        .project-body-inner {
+            overflow: hidden;
+        }
+        .project-body-inner p:first-child {
+            margin-top: 15px;
         }
         .map-container {
             margin-top: 18px;
@@ -341,32 +388,60 @@
     <section class="projects">
         <h2>Selected Projects</h2>
 
-        <div class="project">
-            <h3>Paris: Green Space Accessibility & Social Inequality</h3>
-            <p>Spatial analysis evaluating proximity to mapped green features, green-space provision per resident, and median household income across 992 IRIS neighbourhood units in Paris. Built with GIS spatial analysis, 500 m buffer calculations, and interactive geospatial data visualization.</p>
-            <div class="map-container">
-                <iframe
-                    src="./paris-green-map/index.html?embed=1"
-                    title="Interactive map of green-space accessibility and social inequality in Paris"
-                    loading="lazy"
-                    class="paris-map-iframe"
-                ></iframe>
+        <div class="project expanded">
+            <button class="project-header" aria-expanded="true">
+                <h3>Paris: Green Space Accessibility & Social Inequality</h3>
+                <span class="project-toggle-icon">▼</span>
+            </button>
+            <div class="project-body">
+                <div class="project-body-inner">
+                    <p>Spatial analysis evaluating proximity to mapped green features, green-space provision per resident, and median household income across 992 IRIS neighbourhood units in Paris. Built with GIS spatial analysis, 500 m buffer calculations, and interactive geospatial data visualization.</p>
+                    <div class="map-container">
+                        <iframe
+                            src="./paris-green-map/index.html?embed=1"
+                            title="Interactive map of green-space accessibility and social inequality in Paris"
+                            loading="lazy"
+                            class="paris-map-iframe"
+                        ></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="project">
-            <h3>Tbilisi: Gudiashvili Square Redevelopment (2022)</h3>
-            <p>The project focused on Gudiashvili Square's redevelopment, analyzing its social and economic dynamics. Our team identified conflicts between residential and commercial uses, disconnected from tourist routes despite its central location. We conducted a SWOT analysis and proposed digital tools, like apps, to enhance public engagement and resolve tensions from recent redevelopment. The project aimed to preserve the square's cultural heritage while promoting sustainable urban growth.</p>
+        <div class="project expanded">
+            <button class="project-header" aria-expanded="true">
+                <h3>Tbilisi: Gudiashvili Square Redevelopment (2022)</h3>
+                <span class="project-toggle-icon">▼</span>
+            </button>
+            <div class="project-body">
+                <div class="project-body-inner">
+                    <p>The project focused on Gudiashvili Square's redevelopment, analyzing its social and economic dynamics. Our team identified conflicts between residential and commercial uses, disconnected from tourist routes despite its central location. We conducted a SWOT analysis and proposed digital tools, like apps, to enhance public engagement and resolve tensions from recent redevelopment. The project aimed to preserve the square's cultural heritage while promoting sustainable urban growth.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="project">
-            <h3>Strezhevoy: 1st Microdistrict Revitalization</h3>
-            <p>Our team developed a revitalization concept aiming to transform underused spaces into vibrant community areas. The project included detailed research on demographics, infrastructure, and local business development (using methods like pedestrian flow measurement and in-depth interviews). We proposed functional upgrades such as a recreation zone, a skate park, townhouses, and an IT club with VR technology to encourage social interaction and support local economic growth.</p>
+        <div class="project expanded">
+            <button class="project-header" aria-expanded="true">
+                <h3>Strezhevoy: 1st Microdistrict Revitalization</h3>
+                <span class="project-toggle-icon">▼</span>
+            </button>
+            <div class="project-body">
+                <div class="project-body-inner">
+                    <p>Our team developed a revitalization concept aiming to transform underused spaces into vibrant community areas. The project included detailed research on demographics, infrastructure, and local business development (using methods like pedestrian flow measurement and in-depth interviews). We proposed functional upgrades such as a recreation zone, a skate park, townhouses, and an IT club with VR technology to encourage social interaction and support local economic growth.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="project">
-            <h3>Small Cities Master Plans (Ministry of Construction)</h3>
-            <p>Created during an internship at the Ministry of Construction, Housing and Utilities, this project focuses on developing comprehensive master plans for small towns. The plans address key urban challenges such as outdated infrastructure, abandoned cultural heritage sites, and a lack of public spaces. The goal is to improve living conditions by renewing housing, creating new jobs, enhancing public transportation, and developing green spaces.</p>
+        <div class="project expanded">
+            <button class="project-header" aria-expanded="true">
+                <h3>Small Cities Master Plans (Ministry of Construction)</h3>
+                <span class="project-toggle-icon">▼</span>
+            </button>
+            <div class="project-body">
+                <div class="project-body-inner">
+                    <p>Created during an internship at the Ministry of Construction, Housing and Utilities, this project focuses on developing comprehensive master plans for small towns. The plans address key urban challenges such as outdated infrastructure, abandoned cultural heritage sites, and a lack of public spaces. The goal is to improve living conditions by renewing housing, creating new jobs, enhancing public transportation, and developing green spaces.</p>
+                </div>
+            </div>
         </div>
 
         <!-- Placeholder for future portfolio expansion -->
@@ -404,6 +479,17 @@
                 summaryToggleBtn.querySelector('.btn-text').textContent = isExpanded ? 'Less' : 'More';
             });
         }
+
+        // Project collapse/expand functionality
+        document.querySelectorAll('.project-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const project = header.closest('.project');
+                if (project) {
+                    const isExpanded = project.classList.toggle('expanded');
+                    header.setAttribute('aria-expanded', isExpanded);
+                }
+            });
+        });
 
         // Theme Toggle functionality (Default: Light Theme)
         const themeToggleBtn = document.getElementById('theme-toggle');
