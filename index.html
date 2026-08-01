@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nata Kazarian - Urban Planner Portfolio</title>
+    <title>Nata Kazarian - Urban Planner & Spatial Data Analyst</title>
     <link rel="icon" type="image/svg+xml" href="building-community.svg">
     <style>
         :root {
@@ -195,6 +195,58 @@
             border-radius: 0 6px 6px 0;
             transition: all 0.3s ease;
         }
+        .summary p {
+            margin-top: 0;
+        }
+        .summary p:last-child {
+            margin-bottom: 0;
+        }
+        .summary-more-container {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .summary-more-container.expanded {
+            grid-template-rows: 1fr;
+        }
+        .summary-more-inner {
+            overflow: hidden;
+        }
+        .summary-more-inner p:first-child {
+            margin-top: 1em;
+        }
+        .summary-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+        .read-more-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.8em;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .read-more-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--card-bg);
+            transform: translateY(-1px);
+        }
+        .read-more-btn .btn-arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+        .read-more-btn.expanded .btn-arrow {
+            transform: rotate(180deg);
+        }
         h2 {
             color: var(--h2-color);
             font-size: 1.8em;
@@ -217,6 +269,27 @@
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 10px;
             transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .map-container {
+            margin-top: 18px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            background: var(--card-bg);
+            transition: border-color 0.3s ease;
+        }
+        .paris-map-iframe {
+            width: 100%;
+            height: 720px;
+            border: 0;
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .paris-map-iframe {
+                height: 600px;
+            }
         }
     </style>
 </head>
@@ -248,12 +321,38 @@
     </header>
 
     <section class="summary">
-        <p>I am an urban planner with a background in managing and developing projects aimed at improving the quality of urban environments, particularly small towns with declining populations. My expertise includes conducting field research, collecting data, and analyzing urban spaces using tools like QGIS.</p>
-        <p>I've worked on projects with the Ministry of Construction, Housing and Utilities and have completed various internships where I focused on the interaction between urban infrastructure and the social and ecological environment. My work spans urban planning, environmental research, and cultural studies, involving fieldwork on invasive species, soundscape studies, and designing speculative urban scenarios through tactical urbanism.</p>
+        <p>I’m an Urban Planner and Spatial Data Analyst who uses GIS, geospatial data validation, and spatial analysis to turn complex urban data into clear, evidence-based planning decisions.</p>
+        <div id="summary-more" class="summary-more-container">
+            <div class="summary-more-inner">
+                <p>I help infrastructure, mobility, and urban planning teams maintain reliable spatial datasets, validate geographic and network data, identify coverage and data-quality gaps, and translate complex geospatial information into practical planning outputs. My work focuses on the details that make urban data accurate and actionable, including land use, functional zoning, accessibility, public space, and infrastructure networks.</p>
+                <p>My background combines hands-on urban planning, international fieldwork, spatial analysis, and remote project coordination. I work effectively in distributed and hybrid teams, using structured documentation, data QA workflows, and asynchronous communication to maintain clarity, consistency, and progress across projects.</p>
+                <p>I collaborate across disciplines with local authorities, planners, technical and product teams, and community stakeholders. I’m particularly interested in connecting technical spatial analysis with planning priorities, operational requirements, and local perspectives.</p>
+                <p>I’m seeking opportunities at the intersection of urban planning, spatial data, infrastructure, mobility, and community-led development, including remote and internationally distributed projects.</p>
+            </div>
+        </div>
+        <div class="summary-footer">
+            <button id="summary-toggle" class="read-more-btn" aria-expanded="false">
+                <span class="btn-text">More</span>
+                <span class="btn-arrow">↓</span>
+            </button>
+        </div>
     </section>
 
     <section class="projects">
         <h2>Selected Projects</h2>
+
+        <div class="project">
+            <h3>Paris: Green Space Accessibility & Social Inequality</h3>
+            <p>Spatial analysis evaluating proximity to mapped green features, green-space provision per resident, and median household income across 992 IRIS neighbourhood units in Paris. Built with GIS spatial analysis, 500 m buffer calculations, and interactive geospatial data visualization.</p>
+            <div class="map-container">
+                <iframe
+                    src="./paris-green-map/index.html?embed=1"
+                    title="Interactive map of green-space accessibility and social inequality in Paris"
+                    loading="lazy"
+                    class="paris-map-iframe"
+                ></iframe>
+            </div>
+        </div>
 
         <div class="project">
             <h3>Tbilisi: Gudiashvili Square Redevelopment (2022)</h3>
@@ -293,6 +392,19 @@
             });
         });
 
+        // Summary Read More toggle
+        const summaryToggleBtn = document.getElementById('summary-toggle');
+        const summaryMore = document.getElementById('summary-more');
+
+        if (summaryToggleBtn && summaryMore) {
+            summaryToggleBtn.addEventListener('click', () => {
+                const isExpanded = summaryMore.classList.toggle('expanded');
+                summaryToggleBtn.classList.toggle('expanded', isExpanded);
+                summaryToggleBtn.setAttribute('aria-expanded', isExpanded);
+                summaryToggleBtn.querySelector('.btn-text').textContent = isExpanded ? 'Less' : 'More';
+            });
+        }
+
         // Theme Toggle functionality (Default: Light Theme)
         const themeToggleBtn = document.getElementById('theme-toggle');
         
@@ -300,12 +412,22 @@
             themeToggleBtn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
         }
 
+        function updateMapIframe(isDark) {
+            const mapIframe = document.querySelector('.paris-map-iframe');
+            if (mapIframe) {
+                const themeParam = isDark ? 'dark' : 'light';
+                mapIframe.src = `./paris-green-map/index.html?embed=1&theme=${themeParam}`;
+            }
+        }
+
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
             updateThemeButton(true);
+            updateMapIframe(true);
         } else {
             updateThemeButton(false);
+            updateMapIframe(false);
         }
 
         themeToggleBtn.addEventListener('click', () => {
@@ -313,6 +435,7 @@
             const isDark = document.body.classList.contains('dark-theme');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateThemeButton(isDark);
+            updateMapIframe(isDark);
         });
     </script>
 </body>
