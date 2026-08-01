@@ -6,21 +6,6 @@
     <title>Nata Kazarian - Urban Planner Portfolio</title>
     <style>
         :root {
-            --bg-color: #2b2b2b;
-            --card-bg: #333333;
-            --card-border: #444444;
-            --text-color: #ffffff;
-            --h1-color: #db4a2b;
-            --h2-color: #ffffff;
-            --subtitle-color: #ffffff;
-            --project-h3-color: #db4a2b;
-            --accent-color: #db4a2b;
-            --copy-tooltip-bg: #db4a2b;
-            --copy-tooltip-text: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-        }
-
-        body.light-theme {
             --bg-color: #ffffff;
             --card-bg: #f8faf8;
             --card-border: #d4e5d1;
@@ -33,6 +18,21 @@
             --copy-tooltip-bg: #72a865;
             --copy-tooltip-text: #ffffff;
             --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-theme {
+            --bg-color: #2b2b2b;
+            --card-bg: #333333;
+            --card-border: #444444;
+            --text-color: #ffffff;
+            --h1-color: #db4a2b;
+            --h2-color: #ffffff;
+            --subtitle-color: #ffffff;
+            --project-h3-color: #db4a2b;
+            --accent-color: #db4a2b;
+            --copy-tooltip-bg: #db4a2b;
+            --copy-tooltip-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.4);
         }
 
         body {
@@ -222,7 +222,7 @@
 <body>
 
     <header>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">☀️ Light</button>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">🌙 Dark</button>
         <div class="profile-img-wrapper">
             <img src="nata.jpg" alt="Nata Kazarian">
         </div>
@@ -292,26 +292,26 @@
             });
         });
 
-        // Theme Toggle functionality
+        // Theme Toggle functionality (Default: Light Theme)
         const themeToggleBtn = document.getElementById('theme-toggle');
         
-        function updateThemeButton(isLight) {
-            themeToggleBtn.innerHTML = isLight ? '🌙 Dark' : '☀️ Light';
+        function updateThemeButton(isDark) {
+            themeToggleBtn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
         }
 
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
             updateThemeButton(true);
         } else {
             updateThemeButton(false);
         }
 
         themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
-            const isLight = document.body.classList.contains('light-theme');
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            updateThemeButton(isLight);
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeButton(isDark);
         });
     </script>
 </body>
