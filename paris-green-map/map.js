@@ -415,7 +415,7 @@
     if (mapSection) mapSection.classList.toggle('is-fullscreen', isFS);
     if (fullscreenButton) {
       fullscreenButton.classList.toggle('is-active', isFS);
-      fullscreenButton.innerHTML = isFS ? '🗗 Exit' : '⛶ Fullscreen';
+      fullscreenButton.innerHTML = isFS ? 'Exit' : 'Fullscreen';
     }
     setTimeout(() => map.invalidateSize(), 150);
   }
