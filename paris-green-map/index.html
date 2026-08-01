@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive map of green-space accessibility, provision and neighbourhood income in Paris.">
+  <title>Paris Green Space Analysis — Interactive Map</title>
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://a.basemaps.cartocdn.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Spatial analysis · Paris · IRIS level</p>
+        <h1>Green Space Accessibility and Social Inequality in Paris</h1>
+        <p class="hero-text">
+          Explore proximity to mapped green features, green space per resident and median household income across Paris neighbourhoods.
+        </p>
+      </div>
+
+      <div class="stats" aria-label="Project summary">
+        <article class="stat-card">
+          <span class="stat-value">992</span>
+          <span class="stat-label">IRIS zones</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">500 m</span>
+          <span class="stat-label">straight-line buffer</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">0.68 m²</span>
+          <span class="stat-label">median per person*</span>
+        </article>
+      </div>
+    </header>
+
+    <section class="map-section" aria-labelledby="map-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive map</p>
+          <h2 id="map-heading">Compare the three spatial patterns</h2>
+        </div>
+        <button class="theme-button" id="themeButton" type="button" aria-pressed="false">
+          <span aria-hidden="true">◐</span>
+          <span>Dark map</span>
+        </button>
+      </div>
+
+      <div class="map-toolbar" aria-label="Map controls">
+        <div class="mode-tabs" role="group" aria-label="Choose map theme">
+          <button type="button" class="mode-button is-active" data-mode="green" aria-pressed="true">Green space per resident</button>
+          <button type="button" class="mode-button" data-mode="income" aria-pressed="false">Median income</button>
+          <button type="button" class="mode-button" data-mode="access" aria-pressed="false">500 m access</button>
+        </div>
+
+        <div class="toolbar-actions">
+          <label class="layer-toggle">
+            <input id="greenToggle" type="checkbox" checked>
+            <span>Mapped green features</span>
+          </label>
+          <button id="storyButton" type="button" class="story-button">▶ Play story</button>
+        </div>
+      </div>
+
+      <div class="map-frame">
+        <div id="map" role="application" aria-label="Interactive map of Paris IRIS zones and green spaces"></div>
+
+        <div class="loading-panel" id="loadingPanel" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Loading spatial data…</span>
+        </div>
+
+        <aside class="info-panel" id="infoPanel" aria-live="polite">
+          <span class="info-kicker">Hover over an IRIS zone</span>
+          <strong>Paris neighbourhoods</strong>
+          <span>Click a zone to see all indicators.</span>
+        </aside>
+
+        <aside class="legend-panel" id="legendPanel" aria-label="Map legend"></aside>
+
+        <div class="story-caption" id="storyCaption" aria-live="polite" hidden>
+          <span class="story-step" id="storyStep"></span>
+          <strong id="storyTitle"></strong>
+          <span id="storyText"></span>
+        </div>
+      </div>
+
+      <p class="map-help">Hover to inspect a zone, click for details, and use the buttons above to compare patterns.</p>
+    </section>
+
+    <section class="findings" aria-labelledby="findings-heading">
+      <div>
+        <p class="eyebrow">Interpretation</p>
+        <h2 id="findings-heading">The Paris green-space paradox</h2>
+      </div>
+      <div class="finding-grid">
+        <article>
+          <span class="finding-number">01</span>
+          <h3>Proximity is high</h3>
+          <p>Nearly the entire city lies within 500 m of a mapped green or assimilated feature.</p>
+        </article>
+        <article>
+          <span class="finding-number">02</span>
+          <h3>Quantity is low</h3>
+          <p>The analysis reports a median of 0.68 m² per resident, well below the cited planning benchmark.</p>
+        </article>
+        <article>
+          <span class="finding-number">03</span>
+          <h3>No clear luxury effect</h3>
+          <p>The income gradient is visible, but green-space provision does not reproduce it clearly at IRIS level.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="method-note">
+      <strong>Method and limitations.</strong>
+      The buffer uses Euclidean distance rather than pedestrian routes. Mapped features have different levels of public accessibility, and the per-capita indicator does not capture cross-boundary park use. No formal correlation test was conducted.
+      <span>*Summary figures follow the accompanying analysis; the map uses the supplied GeoJSON export.</span>
+    </footer>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./map.js"></script>
+</body>
+</html>
