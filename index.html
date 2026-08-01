@@ -8,54 +8,149 @@
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #ffffff;
             max-width: 900px;
             margin: 0 auto;
             padding: 30px 20px;
-            background-color: #fcfcfc;
+            background-color: #2b2b2b;
         }
         header {
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 25px;
             margin-bottom: 40px;
+        }
+        .profile-img-wrapper {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #db4a2b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
+        }
+        .profile-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .header-content {
+            flex-grow: 1;
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
         }
         h1 {
             margin: 0 0 5px 0;
             font-size: 2.5em;
-            color: #222;
+            color: #db4a2b;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin: 0 0 15px 0;
+            font-weight: 400;
         }
         .contact-info {
             font-size: 0.95em;
-            color: #555;
+            color: #ffffff;
             margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
         }
-        .contact-info span {
-            margin-right: 15px;
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #333333;
+            padding: 6px 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .contact-item:hover {
+            border-color: #db4a2b;
+            background-color: #3d3d3d;
+            color: #ffffff;
+        }
+        .contact-item .copy-icon {
+            font-size: 0.85em;
+            opacity: 0.7;
+            margin-left: 2px;
+        }
+        .contact-item:hover .copy-icon {
+            opacity: 1;
+        }
+        .contact-item.copied::after {
+            content: 'Copied! ✓';
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #db4a2b;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            animation: fadeIn 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            pointer-events: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, 5px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        .location-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            color: #ffffff;
+            background: #333333;
+            border: 1px solid #444;
+            border-radius: 6px;
         }
         .summary {
             font-size: 1.1em;
-            background: #fff;
+            background: #333333;
+            color: #ffffff;
             padding: 20px;
-            border-left: 4px solid #e74c3c;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid #db4a2b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             margin-bottom: 40px;
+            border-radius: 0 6px 6px 0;
         }
         h2 {
-            color: #222;
+            color: #ffffff;
             font-size: 1.8em;
             margin-bottom: 20px;
         }
         .project {
-            background: #fff;
+            background: #333333;
+            color: #ffffff;
             padding: 25px;
             margin-bottom: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #3d3d3d;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .project h3 {
             margin-top: 0;
-            color: #e74c3c;
-            border-bottom: 1px solid #eee;
+            color: #db4a2b;
+            border-bottom: 1px solid #444;
             padding-bottom: 10px;
         }
     </style>
@@ -63,11 +158,26 @@
 <body>
 
     <header>
-        <h1>Nata Kazarian</h1>
-        <div class="contact-info">
-            <span>📞 +995-571-25-22-49</span>
-            <span>✉️ vistink01@gmail.com</span><br>
-            <span>📍 France</span>
+        <div class="profile-img-wrapper">
+            <img src="nata.jpg" alt="Nata Kazarian">
+        </div>
+        <div class="header-content">
+            <h1>Nata Kazarian</h1>
+            <p class="subtitle">Urban Planner & Spatial Data Analyst</p>
+            <div class="contact-info">
+                <div class="location-item">
+                    <span>📍</span>
+                    <span>France</span>
+                </div>
+                <a class="contact-item" data-copy="natakazariani@gmail.com" title="Click to copy email">
+                    <span>✉️</span>
+                    <span>natakazariani@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/natakazarian/" target="_blank" rel="noopener noreferrer" class="contact-item" title="Click to open LinkedIn profile">
+                    <span>💼</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -104,5 +214,17 @@
 
     </section>
 
+    <script>
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const textToCopy = item.getAttribute('data-copy');
+                if (navigator.clipboard && textToCopy) {
+                    navigator.clipboard.writeText(textToCopy);
+                    item.classList.add('copied');
+                    setTimeout(() => item.classList.remove('copied'), 2000);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
