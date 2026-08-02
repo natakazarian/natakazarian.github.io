@@ -1,32 +1,40 @@
 :root {
   color-scheme: light;
-  --page-bg: #f4f5f1;
-  --surface: #ffffff;
-  --surface-soft: #eef1ec;
-  --text: #17212b;
+  --page-bg: #ffffff;
+  --surface: #f8faf8;
+  --surface-soft: #f1f6f0;
+  --text: #000000;
   --muted: #617080;
-  --border: #d8ded7;
-  --navy: #0d3557;
-  --green: #5f9650;
+  --border: #d4e5d1;
+  --navy: #17365d;
+  --green: #72a865;
   --green-dark: #2f653b;
+  --button-accent: #2f653b;
+  --button-bg: color-mix(in srgb, var(--button-accent) 10%, transparent);
+  --button-bg-hover: color-mix(in srgb, var(--button-accent) 18%, transparent);
+  --button-border: color-mix(in srgb, var(--button-accent) 38%, transparent);
   --focus: #1676d2;
-  --shadow: 0 16px 40px rgba(25, 35, 45, 0.12);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
   --map-height: min(72vh, 720px);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page-bg: #202221;
-  --surface: #2b2e2c;
-  --surface-soft: #333735;
-  --text: #f3f6f2;
-  --muted: #b6c0b8;
-  --border: #464c48;
-  --navy: #9dc7ea;
-  --green: #85bd73;
-  --green-dark: #a6d398;
-  --focus: #72b7f2;
-  --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  --page-bg: #2b2b2b;
+  --surface: #333333;
+  --surface-soft: #393939;
+  --text: #ffffff;
+  --muted: #c4c4c4;
+  --border: #444444;
+  --navy: #db4a2b;
+  --green: #db4a2b;
+  --green-dark: #db4a2b;
+  --button-accent: #db4a2b;
+  --button-bg: color-mix(in srgb, var(--button-accent) 11%, transparent);
+  --button-bg-hover: color-mix(in srgb, var(--button-accent) 20%, transparent);
+  --button-border: color-mix(in srgb, var(--button-accent) 42%, transparent);
+  --focus: #db4a2b;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -181,6 +189,14 @@ h3 {
   transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
+.legend-toggle-button,
+.fullscreen-button,
+.mode-button {
+  border-color: var(--button-border);
+  background: var(--button-bg);
+  color: var(--button-accent);
+}
+
 .theme-button,
 .legend-toggle-button,
 .fullscreen-button {
@@ -191,11 +207,17 @@ h3 {
   white-space: nowrap;
 }
 
-.theme-button:hover,
+.theme-button:hover {
+  border-color: var(--button-accent);
+  transform: translateY(-1px);
+}
+
 .legend-toggle-button:hover,
 .fullscreen-button:hover,
 .mode-button:hover {
-  border-color: var(--green);
+  border-color: var(--button-accent);
+  background: var(--button-bg-hover);
+  color: var(--button-accent);
   transform: translateY(-1px);
 }
 
@@ -214,13 +236,9 @@ h3 {
 }
 
 .mode-button.is-active {
-  border-color: var(--navy);
-  background: var(--navy);
+  border-color: var(--button-accent);
+  background: var(--button-accent);
   color: #ffffff;
-}
-
-:root[data-theme="dark"] .mode-button.is-active {
-  color: #102231;
 }
 
 .layer-toggle {
@@ -238,16 +256,10 @@ h3 {
   accent-color: var(--green);
 }
 
-.legend-toggle-button,
-.fullscreen-button {
-  border-color: color-mix(in srgb, var(--green) 55%, var(--border));
-  background: color-mix(in srgb, var(--green) 13%, var(--surface));
-}
-
 .legend-toggle-button.is-active,
 .fullscreen-button.is-active {
-  border-color: var(--navy);
-  background: var(--navy);
+  border-color: var(--button-accent);
+  background: var(--button-accent);
   color: #ffffff;
 }
 
