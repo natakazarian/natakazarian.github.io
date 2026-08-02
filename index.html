@@ -317,25 +317,210 @@
         .project-body-inner p:first-child {
             margin-top: 15px;
         }
-        .map-container {
+        .map-preview-container {
             margin-top: 18px;
+            width: 100%;
+        }
+        .map-slider-card {
+            display: flex;
+            flex-direction: column;
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--card-border);
             box-shadow: 0 4px 20px var(--shadow-color);
             background: var(--card-bg);
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .paris-map-iframe {
+        .map-slider-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        .map-slider-viewport {
+            display: block;
+            position: relative;
             width: 100%;
-            height: 720px;
-            border: 0;
+            aspect-ratio: 16 / 9.5;
+            max-height: 440px;
+            overflow: hidden;
+            background: #1a1a1a;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .map-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .map-slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .map-preview-img-light,
+        .map-preview-img-dark {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .map-preview-img-dark {
+            display: none;
+        }
+        body.dark-theme .map-preview-img-light {
+            display: none;
+        }
+        body.dark-theme .map-preview-img-dark {
             display: block;
         }
+        /* Subtle zoom on image hover */
+        .map-slider-viewport:hover .map-slide.active .map-preview-img-light,
+        .map-slider-viewport:hover .map-slide.active .map-preview-img-dark {
+            transform: scale(1.035);
+        }
+        .map-slider-overlay-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 4;
+            background: #72a865;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.82em;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        body.dark-theme .map-slider-overlay-badge {
+            background: rgba(219, 74, 43, 0.85);
+        }
+        .map-slider-viewport:hover .map-slider-overlay-badge {
+            transform: translateY(-1px);
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.4em;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .slider-arrow.prev {
+            left: 14px;
+        }
+        .slider-arrow.next {
+            right: 14px;
+        }
+        .slider-arrow:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.08);
+        }
+        .map-slider-footer {
+            padding: 10px 14px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .slider-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .slider-tab {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            padding: 6px 13px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.82em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .slider-tab:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        .slider-tab.active {
+            background: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+        .tab-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(114, 168, 101, 0.2);
+            color: var(--accent-color);
+            font-size: 0.85em;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .slider-tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        .slider-counter {
+            font-size: 0.82em;
+            opacity: 0.75;
+            font-weight: 600;
+            white-space: nowrap;
+            padding-right: 4px;
+        }
         @media (max-width: 600px) {
-            .paris-map-iframe {
-                height: 600px;
+            .map-slider-viewport {
+                aspect-ratio: 4 / 3;
+            }
+            .slider-arrow {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2em;
+            }
+            .slider-arrow.prev { left: 8px; }
+            .slider-arrow.next { right: 8px; }
+            .map-slider-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .slider-counter {
+                align-self: flex-end;
             }
         }
     </style>
@@ -396,15 +581,49 @@
             <div class="project-body">
                 <div class="project-body-inner">
                     <p>Spatial analysis evaluating proximity to mapped green features, green-space provision per resident, and median household income across 992 IRIS neighbourhood units in Paris. Built with GIS spatial analysis, 500 m buffer calculations, and interactive geospatial data visualization.</p>
-                    <div class="map-container">
-                        <iframe
-                            src="./paris-green-map/index.html?embed=1"
-                            title="Interactive map of green-space accessibility and social inequality in Paris"
-                            loading="lazy"
-                            class="paris-map-iframe"
-                            allowfullscreen
-                            allow="fullscreen"
-                        ></iframe>
+                    <div class="map-preview-container">
+                        <div class="map-slider-card">
+                            <a href="https://natakazarian.github.io/paris-green-map/" target="_blank" rel="noopener noreferrer" class="map-slider-viewport" title="Open Interactive Paris Green Space Map">
+                                <div class="map-slide active" data-slide="0">
+                                    <img src="paris-map-preview-light-1.png" alt="1 - Green space per resident (Light theme)" class="map-preview-img-light" loading="lazy">
+                                    <img src="paris-map-preview-dark-1.png" alt="1 - Green space per resident (Dark theme)" class="map-preview-img-dark" loading="lazy">
+                                </div>
+                                <div class="map-slide" data-slide="1">
+                                    <img src="paris-map-preview-light-2.png" alt="2 - Median income (Light theme)" class="map-preview-img-light" loading="lazy">
+                                    <img src="paris-map-preview-dark-2.png" alt="2 - Median income (Dark theme)" class="map-preview-img-dark" loading="lazy">
+                                </div>
+                                <div class="map-slide" data-slide="2">
+                                    <img src="paris-map-preview-light-3.png" alt="3 - 500 m access (Light theme)" class="map-preview-img-light" loading="lazy">
+                                    <img src="paris-map-preview-dark-3.png" alt="3 - 500 m access (Dark theme)" class="map-preview-img-dark" loading="lazy">
+                                </div>
+
+                                <div class="map-slider-overlay-badge">
+                                    <span>Explore Interactive Map</span>
+                                    <span>↗</span>
+                                </div>
+
+                                <button type="button" class="slider-arrow prev" id="slider-prev-btn" aria-label="Previous screenshot" title="Previous screenshot">‹</button>
+                                <button type="button" class="slider-arrow next" id="slider-next-btn" aria-label="Next screenshot" title="Next screenshot">›</button>
+                            </a>
+
+                            <div class="map-slider-footer">
+                                <div class="slider-tabs">
+                                    <button type="button" class="slider-tab active" data-target="0">
+                                        <span class="tab-badge">1</span>
+                                        <span>Green space per resident</span>
+                                    </button>
+                                    <button type="button" class="slider-tab" data-target="1">
+                                        <span class="tab-badge">2</span>
+                                        <span>Median income</span>
+                                    </button>
+                                    <button type="button" class="slider-tab" data-target="2">
+                                        <span class="tab-badge">3</span>
+                                        <span>500 m access</span>
+                                    </button>
+                                </div>
+                                <div class="slider-counter"><span id="current-slide-num">1</span> / 3</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,14 +664,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Placeholder for future portfolio expansion -->
-        <!-- 
-        <div class="project">
-            <h3>Kazan / Borjomi / Ostashkov Field Research</h3>
-            <p>[Insert your academic land-use assessments, workshop data, and spatial planning briefs here]</p>
-        </div>
-        -->
 
     </section>
 
@@ -500,22 +711,12 @@
             themeToggleBtn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
         }
 
-        function updateMapIframe(isDark) {
-            const mapIframe = document.querySelector('.paris-map-iframe');
-            if (mapIframe) {
-                const themeParam = isDark ? 'dark' : 'light';
-                mapIframe.src = `./paris-green-map/index.html?embed=1&theme=${themeParam}`;
-            }
-        }
-
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
             updateThemeButton(true);
-            updateMapIframe(true);
         } else {
             updateThemeButton(false);
-            updateMapIframe(false);
         }
 
         themeToggleBtn.addEventListener('click', () => {
@@ -523,7 +724,60 @@
             const isDark = document.body.classList.contains('dark-theme');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateThemeButton(isDark);
-            updateMapIframe(isDark);
+        });
+
+        // Paris Map Slider functionality
+        const slides = document.querySelectorAll('.map-slide');
+        const sliderTabs = document.querySelectorAll('.slider-tab');
+        const prevBtn = document.getElementById('slider-prev-btn');
+        const nextBtn = document.getElementById('slider-next-btn');
+        const currentSlideNum = document.getElementById('current-slide-num');
+
+        let activeSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        function goToSlide(index) {
+            if (totalSlides === 0) return;
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+
+            activeSlideIndex = index;
+
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === activeSlideIndex);
+            });
+
+            sliderTabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === activeSlideIndex);
+            });
+
+            if (currentSlideNum) {
+                currentSlideNum.textContent = activeSlideIndex + 1;
+            }
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                goToSlide(activeSlideIndex - 1);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                goToSlide(activeSlideIndex + 1);
+            });
+        }
+
+        sliderTabs.forEach((tab, i) => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                goToSlide(i);
+            });
         });
     </script>
 </body>
